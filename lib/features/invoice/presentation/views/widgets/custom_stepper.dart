@@ -11,48 +11,62 @@ class CustomStepper extends StatelessWidget {
     required this.price,
   });
   final double price;
-  
+  int quantity = 1;
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<QuantityIncrementCubit, QuantityIncrementState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            RoundedIconButton(
-              icon: Icons.remove,
-              iconSize: 45,
-              onPress: () {
-                BlocProvider.of<QuantityIncrementCubit>(context)
-                    .counterplus(button: 'minus',price: price );
-                   
-              },
-            ),
-            Container(
-              width: 50,
-              child: Text(
-                '${BlocProvider.of<QuantityIncrementCubit>(context).value1}',
-                style: TextStyle(
-                  fontSize: 30,
-                ),
-                textAlign: TextAlign.center,
+    return BlocProvider(
+      create: (context) => QuantityIncrementCubit(),
+      child: BlocConsumer<QuantityIncrementCubit, QuantityIncrementState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          int quantity = 1;
+          double totalPrice = price;
+          if (state is QuantityIncrementUpdated) {
+            quantity = state.quantity;
+            totalPrice = state.totalPrice;
+          }
+          return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RoundedIconButton(
+                    icon: Icons.remove,
+                    iconSize: 45,
+                    onPress: () {
+                      BlocProvider.of<QuantityIncrementCubit>(context)
+                          .counterplus(button: 'minus', price: price);
+                    },
+                  ),
+                  Container(
+                    width: 50,
+                    child: Text(
+                      '${quantity}',
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  RoundedIconButton(
+                    icon: Icons.add,
+                    iconSize: 45,
+                    onPress: () {
+                      BlocProvider.of<QuantityIncrementCubit>(context)
+                          .counterplus(button: 'plus', price: price);
+                    },
+                  ),
+                ],
               ),
-            ),
-            RoundedIconButton(
-              icon: Icons.add,
-              iconSize: 45,
-              onPress: () {
-                BlocProvider.of<QuantityIncrementCubit>(context)
-                    .counterplus(button: 'plus',price: price );
-              },
-            ),
-          ],
-        );
-      },
-      
+              Container(
+                child: Text('${totalPrice}',style:const TextStyle(fontSize: 28),),
+              )
+            ],
+          );
+        },
+      ),
     );
   }
 }

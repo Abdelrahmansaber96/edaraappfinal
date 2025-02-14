@@ -1,16 +1,12 @@
 part of 'quantity_increment_cubit.dart';
 
-sealed class QuantityIncrementState {
-  const QuantityIncrementState();
+abstract class QuantityIncrementState {}
 
-  @override
-  List<Object> get props => [];
-}
+class QuantityIncrementInitial extends QuantityIncrementState {}
 
-final class QuantityIncrementInitial extends QuantityIncrementState {
-  QuantityIncrementInitial();
+class QuantityIncrementUpdated extends QuantityIncrementState {
+  final int quantity;
+  final double totalPrice;
+
+  QuantityIncrementUpdated(this.quantity, this.totalPrice);
 }
-final class QuantityIncrementPlus extends QuantityIncrementState {}
-final class QuantityIncrementMinus extends QuantityIncrementState {}
-// final class QuantityIncrementPricePlus extends QuantityIncrementState {}
-// final class QuantityIncrementPriceMinus extends QuantityIncrementState {}

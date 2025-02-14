@@ -35,6 +35,7 @@ class InvoicePage extends StatelessWidget {
           BlocProvider(
             create: (context) => ProductDataCubit(DioConsumer(dio: Dio())),
           ),
+          
         ],
         child: Scaffold(
             appBar: AppBar(

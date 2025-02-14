@@ -23,9 +23,7 @@ void main() {
       BlocProvider(
         create: (context) => AllAreasCubit(DioConsumer(dio: Dio())),
       ),
-       BlocProvider(
-        create: (context) => QuantityIncrementCubit(),
-      ),
+       
     ],
     child: MaterialApp.router(
       routerConfig: AppRouter.router,
